@@ -46,7 +46,6 @@ extern int chess_board_on;
 extern int step_max;
 // extern int RAY;
 
-/////////////////////////////////////////////////////////////////////
 RGB_float get_ambient_component(Spheres *sph) {
 	// ambient = global ambient + light1_ambient
 	RGB_float ambient_component;
