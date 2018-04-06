@@ -6,7 +6,6 @@
  *  Render a simple scene using ray tracing
  *
  *  NAME:   Tu Dat Nguyen
- *  SFU ID: 301318426
  *
  *  Template code for drawing a scene using raycasting.
  *  Some portions of the code was originally written by
