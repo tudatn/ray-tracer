@@ -44,7 +44,6 @@ extern int stochastic_on;
 extern int supersampling_on;
 extern int chess_board_on;
 extern int step_max;
-// extern int RAY;
 
 RGB_float get_ambient_component(Spheres *sph) {
 	// ambient = global ambient + light1_ambient
@@ -55,7 +54,6 @@ RGB_float get_ambient_component(Spheres *sph) {
 	return ambient_component;
 }
 
-// initialize a chess_board
 void create_chess_board() {
 	Point board_ctr = {0, -2, -2};
     float board_rad = 1.0;
@@ -70,7 +68,12 @@ void create_chess_board() {
            board_reflectance, board_transparency, -1);
 }
 /*********************************************************************
-* Phong illumination - you need to implement this!
+* Phong illumination
+  Precondition:
+  - q, v: a surface point and direction vector
+  - surf_norm: normal vector
+  - sph: list of spheres
+  Postcondition:returns color at q
 *********************************************************************/
 RGB_float phong(Point q, Vector v, Vector surf_norm, Spheres *sph) {
 	RGB_float ambient_component = get_ambient_component(sph);
@@ -107,19 +110,21 @@ RGB_float phong(Point q, Vector v, Vector surf_norm, Spheres *sph) {
 }
 
 /************************************************************************
-* This is the recursive ray tracer - you need to implement this!
-* You should decide what arguments to use.
+* recursive ray tracer
+  Precondition:
+  - o, ray: a point o and direction vector
+  - level_recursion: number of recursive rays
+  - skip: sphere emanating the ray
+  Postcondition: returns color value at the interseciton of the ray with a sphere
 ************************************************************************/
 RGB_float recursive_ray_trace(Point o, Vector ray, int level_recursion, Spheres *skip) {
 	RGB_float color = background_clr;
 	RGB_float reflection_color, refraction_color;
 	RGB_float stochastic_color = {0, 0, 0};
-
 	// prepare for Phong illumination
 	Point hit;
 	Vector point_eye, point_light;
 	Vector surf_norm = {0, 1, 0};
-	// skip = first_hit_sphere;
 	Spheres * first_hit_sphere = intersect_scene(o, ray, scene, &hit, skip);
 	if (first_hit_sphere) {
 		if (first_hit_sphere->index > 0)
@@ -180,10 +185,6 @@ RGB_float recursive_ray_trace(Point o, Vector ray, int level_recursion, Spheres 
 /*********************************************************************
 * This function traverses all the pixels and cast rays. It calls the
 * recursive ray tracer and assign return color to frame
-*
-* You should not need to change it except for the call to the recursive
-* ray tracer. Feel free to change other parts of the function however,
-* if you must.
 *********************************************************************/
 void ray_trace() {
 	int i, j;
