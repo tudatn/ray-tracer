@@ -62,10 +62,10 @@ void create_chess_board() {
     float board_specular[] = {0, 0, 0};
     float board_shineness = 20;
     float board_reflectance = 0.2;
-    float board_transparency = 1.0;
+    float board_refractive_index = 1.0;
     scene = add_sphere(scene, board_ctr, board_rad, board_ambient,
                board_diffuse, board_specular, board_shineness,
-           board_reflectance, board_transparency, -1);
+           board_reflectance, board_refractive_index, -1);
 }
 /*********************************************************************
 * Phong illumination
@@ -150,7 +150,7 @@ RGB_float recursive_ray_trace(Point o, Vector ray, int level_recursion, Spheres 
 		if (refraction_on && level_recursion++ < step_max) {
 			Vector light    = ray;
 			Vector n        = surf_norm;
-			float ratio = 1.0 / first_hit_sphere->transparency;
+			float ratio = 1.0 / first_hit_sphere->refractive_index;
 			float costheta1   = -1.0 * vec_dot(surf_norm, light);
 			float sintheta2   = ratio * sqrt(1 - pow(costheta1, 2));
 			float costheta2   = sqrt(1 - pow(sintheta2, 2));

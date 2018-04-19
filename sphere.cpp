@@ -4,7 +4,7 @@
 #include <math.h>
 #include <cfloat>
 
-// set chess_board to black or white
+// set chess_board to black(1) or white(0) mode
 void set_black_white(int mode, Spheres * chess_board) {
     for (int i = 0; i < 3; i++) {
         chess_board->mat_ambient[i]  = mode;
@@ -26,9 +26,9 @@ float intersect_board(Point o, Vector u, Spheres *sph, Point *hit) {
     float t = vec_dot(get_vec(o, sph->center), chess_board_norm) / (vec_dot(u, chess_board_norm));
     if (t < 0.00001) return -1.0;  //
     Point intersection = get_point(o, vec_scale(u, t));
-    float x_length = 10.0;
-    float z_length = -1.0;
-    if (intersection.x <= x_length && intersection.x >= -x_length && intersection.z <= z_length && intersection.z >= -10) {
+    float x_limit = 10.0;
+    float z_limit = -1.0;
+    if (intersection.x <= x_limit && intersection.x >= -x_limit && intersection.z <= z_limit && intersection.z >= -10) {
         if (intersection.x >= 0) {
             if ((int(intersection.x) + int(intersection.z)) % 2 == 0) set_black_white(0, sph);
             else set_black_white(1, sph);
@@ -148,7 +148,7 @@ Spheres *add_sphere(Spheres *slist, Point ctr, float rad, float amb[],
     (new_sphere->mat_specular)[2] = spe[2];
     new_sphere->mat_shineness = shine;
     new_sphere->reflectance = refl;
-    new_sphere->transparency = trans;
+    new_sphere->refractive_index = trans;
     new_sphere->next = NULL;
 
     if (slist == NULL) { // first object
