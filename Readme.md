@@ -20,3 +20,7 @@ make clean_object
 make
 ./raycast [-d|-u] [0-5] [+s|+l|+c|+r|+f|+p]
 ```
+
+## Sample rendered photos
+
+![sample](https://user-images.githubusercontent.com/26643781/39025448-e3cae042-43fb-11e8-836a-91c51ca1aabe.png)
