@@ -13,7 +13,7 @@ typedef struct sphere {
   float mat_diffuse[3];
   float mat_specular[3];
   float mat_shineness;
-  float transparency;
+  float refractive_index;
   float reflectance;       // this number [0,1] determines how much
                            // reflected light contributes to the color
                            // of a pixel
